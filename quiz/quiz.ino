@@ -22,6 +22,7 @@ void setup() {
 void loop() { 
   if(!waitingForInput) {
     randomInt = random(NUM_OF_QUESTIONS);
+    randomInt = 8;
     Serial.println(questions[randomInt]);
     rightAnswer = answers[randomInt];
   }
@@ -29,10 +30,10 @@ void loop() {
   waitingForInput = 1;
   b1 = !digitalRead(BUTTON1);
   b2 = !digitalRead(BUTTON2);
+  delay(50);
   
   if(b1 && b2) {
     if(randomInt == 8) {
-      Serial.println("Pensavo di fregarti! Guadagni 2 punti!");
       score++;
       givenAnswer = 2;
       waitingForInput = 0;
@@ -51,7 +52,6 @@ void loop() {
 
   if(!waitingForInput) {  
     if(givenAnswer == rightAnswer) {
-      Serial.println("Risposta esatta!");
       score++;
       if(score >= WINNING_SCORE) {
         Serial.println("HAI VINTO!");
@@ -61,9 +61,11 @@ void loop() {
         playMusic(valchirie,NOTE_VALCHIRIE,CRGB(50,50,0));
         score = 0;
       } else if(randomInt == 8) {
+        Serial.println("Pensavo di fregarti! Guadagni 2 punti!");
         playMusic(empire,NOTE_EMPIRE,CRGB(50,0,50));
         printScore();
       } else {
+        Serial.println("Risposta esatta!");
         playMusic(vivaldi,NOTE_VIVALDI,CRGB(0,50,0));
         printScore();
       }
@@ -72,9 +74,8 @@ void loop() {
       playMusic(chopin,NOTE_CHOPIN,CRGB(50,0,0));
       printScore();
     }
-    delay(1000);
   } 
-  delay(30);
+  delay(500);
 }
 
 void playMusic(float song[][2], int notes, CRGB color) {
