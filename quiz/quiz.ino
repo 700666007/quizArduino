@@ -22,7 +22,6 @@ void setup() {
 void loop() { 
   if(!waitingForInput) {
     randomInt = random(NUM_OF_QUESTIONS);
-    randomInt = 8;
     Serial.println(questions[randomInt]);
     rightAnswer = answers[randomInt];
   }
